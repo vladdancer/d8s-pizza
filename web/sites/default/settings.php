@@ -786,5 +786,5 @@ if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 }
 
 $config_directories['sync'] = '../config/sync';
-
+$settings['hash_salt'] = 'PYyraSRumxn7X0vQg2gYc-sVyNqs-g__wJbYXlZoRJHUYoMB4ySJItJVnwjmMlRhrWkE0XqXLQ';
 $settings['install_profile'] = 'standard';
