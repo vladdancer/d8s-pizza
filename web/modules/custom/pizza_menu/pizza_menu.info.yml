@@ -1,0 +1,6 @@
+name: Pizza menu
+type: module
+description: 'Pizza menu catalog'
+package: Pizza
+version: VERSION
+core: 8.x
