@@ -8,7 +8,7 @@ namespace Drupal\pizza_menu;
 class PizzaMenuServices implements PizzaMenuServicesInterface {
 
   protected function getData() {
-    $json = file_get_contents('http://www.json-generator.com/api/json/get/bQdXQHhViW?indent=2');
+    return file_get_contents('http://www.json-generator.com/api/json/get/bQdXQHhViW?indent=2');
   }
 
   /**
