@@ -7,5 +7,4 @@ namespace Drupal\pizza_menu;
  */
 interface PizzaMenuServicesInterface {
 
-
 }

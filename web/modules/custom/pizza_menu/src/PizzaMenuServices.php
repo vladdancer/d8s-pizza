@@ -7,18 +7,24 @@ namespace Drupal\pizza_menu;
  */
 class PizzaMenuServices implements PizzaMenuServicesInterface {
 
-  /**
-   * Constructs a new PizzaMenuServices object.
-   */
-  public function __construct() {
-
+  protected function getData() {
+    $json = file_get_contents('http://www.json-generator.com/api/json/get/bQdXQHhViW?indent=2');
   }
 
-    /**
-     * @return string
-     */
-    public function run() {
-        return "This is a test Service";
-    }
+  /**
+   * @return string
+   */
+  public function getAll() {
+    $json = self::getData();
+      return $json;
+  }
+
+  /**
+   * @return string
+   */
+  public function get() {
+    $json = self::getData();
+      return $json;
+  }
 
 }

@@ -295,7 +295,7 @@ $config_directories = array();
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '';
+$settings['hash_salt'] = 'sloqRMiloEaBBVWLmTJxgYUTGgG1pciSF1InQ6qTGJlny3CiE2j_4G_3ZbsFZVivEeyiAo64Iw';
 
 /**
  * Deployment identifier.
@@ -780,11 +780,20 @@ $settings['entity_update_batch_size'] = 50;
  * Keep this code block at the end of this file to take full effect.
  */
 #
-
-if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-    include $app_root . '/' . $site_path . '/settings.local.php';
-}
-
+# if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+#   include $app_root . '/' . $site_path . '/settings.local.php';
+# }
 $config_directories['sync'] = '../config/sync';
-$settings['hash_salt'] = 'PYyraSRumxn7X0vQg2gYc-sVyNqs-g__wJbYXlZoRJHUYoMB4ySJItJVnwjmMlRhrWkE0XqXLQ';
+
+$databases['default']['default'] = array (
+  'database' => 'd8s-pizza',
+  'username' => 'root',
+  'password' => '12345',
+  'prefix' => '',
+  'host' => 'localhost',
+  'port' => '3306',
+  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+  'driver' => 'mysql',
+);
+
 $settings['install_profile'] = 'standard';
