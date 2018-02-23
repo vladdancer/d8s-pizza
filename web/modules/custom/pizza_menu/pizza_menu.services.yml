@@ -1,0 +1,4 @@
+services:
+  orderservice:
+    class: Drupal\pizza_menu\OrderService
+    arguments: []
