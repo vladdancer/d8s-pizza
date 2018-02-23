@@ -1,0 +1,129 @@
+<?php
+
+function pizza_menu_schema() {
+  $schema['pizza_menu_order'] = [
+    'description' => 'Stores Pizza Orders.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The Order ID.',
+      ],
+      'uid' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The Order user ID.',
+      ],
+      'created' => [
+        'description' => 'The Unix timestamp when the order was created.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'changed' => [
+        'description' => 'The Unix timestamp when the order was changed.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'status' => [
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The Order status',
+      ],
+      'deleted' => [
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Is deleted.',
+      ],
+    ],
+    'indexes' => [
+      'order' => ['id', 'uid'],
+    ],
+    'primary key' => ['id'],
+    'foreign keys' => [
+      'order_user' => [
+        'table' => 'users',
+        'columns' => [
+          'uid' => 'uid',
+        ],
+      ],
+    ],
+  ];
+
+  $schema['pizza_menu_order_products'] = [
+    'description' => 'Stores Pizza Orders Products.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The Order ID.',
+      ],
+      'created' => [
+        'description' => 'The Unix timestamp when the order product was created.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'changed' => [
+        'description' => 'The Unix timestamp when the order product was changed.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'product_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The Product ID.',
+      ],
+      'order_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The Order ID.',
+      ],
+      'deleted' => [
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Is deleted.',
+      ],
+    ],
+    'indexes' => [
+      'order' => ['id'],
+    ],
+    'primary key' => ['id'],
+    'foreign keys' => [
+      'order_id' => [
+        'table' => 'pizza_menu_order',
+        'columns' => [
+          'uid' => 'order_id',
+        ],
+      ],
+      'product_id' => [
+        'table' => 'pizza_menupreduct',
+        'columns' => [
+          'uid' => 'product_id',
+        ],
+      ],
+    ],
+  ];
+
+  return $schema;
+}
