@@ -2,14 +2,14 @@
 
 namespace Drupal\pizza_menu\Controller;
 
+
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\HttpFoundation\Request;
 
 class PizzaMenuController extends ControllerBase {
-    public function render (Request $request, $product) {
+    public function render() {
         return [
             '#type' => 'markup',
-            '#markup' => '<h2>'  . $product . '</h2>',
+            '#markup' => 'laidsukgh',
         ];
     }
 }
