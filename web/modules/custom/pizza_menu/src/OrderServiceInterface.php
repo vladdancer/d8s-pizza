@@ -15,21 +15,21 @@ interface OrderServiceInterface {
    * Get all orders
    * @return
    */
-  function get_order_all();
+  function getOrderAll();
 
   /**
    * Get order object
    * @param $order_id
    * @return
    */
-  function get_order($order_id);
+  function getOrder($order_id);
 
   /**
    * Create new order
    * @param $order
    * @return \Drupal\Core\Database\StatementInterface|int|null
    */
-  function set_order($order);
+  function setOrder($order);
 
   /**
    * Update order
@@ -37,7 +37,7 @@ interface OrderServiceInterface {
    * @param $fields
    * @return \Drupal\Core\Database\StatementInterface|int|null
    */
-  function update_order($order_id, $fields);
+  function updateOrder($order_id, $fields);
 
 
   /**
@@ -45,5 +45,5 @@ interface OrderServiceInterface {
    * @param $order_id
    * @return \Drupal\Core\Database\StatementInterface|int|null
    */
-  function remove_order($order_id);
+  function removeOrder($order_id);
 }

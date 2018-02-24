@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\pizza_menu;
+use Drupal\Core\Database\Connection;
 
 /**
  * Class OrderService.
@@ -9,41 +10,49 @@ class OrderService implements OrderServiceInterface {
   const ORDER_TABLE = 'pizza_menu_order';
 
   /**
-   * @var Order ID
+   * @var Connection
+   */
+  protected $connection;
+
+  /**
+   * id
+   * @var
    */
   protected $id;
 
   /**
-   * @var Order status
+   * Order status
+   * @var
    */
   public $status;
 
   /**
-   * @var Created Timestamp
+   * Created Timestamp
+   * @var
    */
   public $created;
 
   /**
-   * @var Chnaged Timestamp
+   * Chnaged Timestamp
+   * @var
    */
   public $changed;
 
   /**
    * Constructs a new OrderService object.
    */
-  public function __construct() {
-
+  public function __construct(Connection $connection) {
+    $this->connection = $connection;
   }
 
   /**
    * Get all orders
    * @return
    */
-  function get_order_all(){
-    return $query = \Drupal::database()->select(self::ORDER_TABLE, 'ord')
+  function getOrderAll(){
+    return $this->connection->select(self::ORDER_TABLE, 'ord')
       ->fields('ord')
-      ->execute()
-      ->fetchAllAssoc();
+      ->execute();
   }
 
   /**
@@ -51,26 +60,25 @@ class OrderService implements OrderServiceInterface {
    * @param $order_id
    * @return
    */
-  function get_order($order_id){
-    return $query = \Drupal::database()->select(self::ORDER_TABLE, 'ord')
+  function getOrder($order_id){
+    return $this->connection->select(self::ORDER_TABLE, 'ord')
       ->fields('ord')
       ->condition('ord.id', $order_id, '=');
 
       // Execute the statement
-      $data = $query->execute();
-      return $data->fetchObject();
-  };
+      return $query->execute()->fetchObject('id');
+  }
 
   /**
    * Create new order
    * @param $order
    * @return \Drupal\Core\Database\StatementInterface|int|null
    */
-  function set_order($order){
-    return $query = \Drupal::database()->insert(self::ORDER_TABLE)
+  function setOrder($order){
+    return $this->connection->insert(self::ORDER_TABLE)
       ->fields($order)
       ->execute();
-  };
+  }
 
   /**
    * Update order
@@ -78,8 +86,8 @@ class OrderService implements OrderServiceInterface {
    * @param $fields
    * @return \Drupal\Core\Database\StatementInterface|int|null
    */
-  function update_order($order_id, $fields = array()){
-    return $query = \Drupal::database()->update(self::ORDER_TABLE)
+  function updateOrder($order_id, $fields = array()){
+    return $this->connection->update(self::ORDER_TABLE)
       ->fields($fields)
       ->condition('id',$order_id)
       ->execute();
@@ -91,8 +99,8 @@ class OrderService implements OrderServiceInterface {
    * @param $order_id
    * @return \Drupal\Core\Database\StatementInterface|int|null
    */
-  function remove_order($order_id){
-    return $query = \Drupal::database()->update(self::ORDER_TABLE)
+  function removeOrder($order_id){
+    return $this->connection->update(self::ORDER_TABLE)
       ->fields(array('deleted' => 1))
       ->condition('id', $order_id)
       ->execute();
