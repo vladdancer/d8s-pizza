@@ -1,0 +1,7 @@
+pizza_menu:
+  path: '/menu/{product}'
+  defaults:
+    _controller: '\Drupal\pizza_menu\Controller\PizzaMenuController::render'
+    _title: 'overview'
+  requirements:
+    _permission: 'access content'
