@@ -1,7 +1,10 @@
 <?php
 
 namespace Drupal\pizza_menu;
+
 use Drupal\Core\Database\Connection;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Drupal\pizza_menu\OrderEvent;
 
 /**
  * Class OrderService.
@@ -14,6 +17,15 @@ class OrderService implements OrderServiceInterface {
    */
   protected $connection;
 
+  /**
+   * @var EventDispatcherInterface
+   */
+  protected $eventDispatcher;
+
+  /**
+   * @var OrderEvent
+   */
+  protected $orderEvent;
   /**
    * id
    * @var
@@ -41,8 +53,13 @@ class OrderService implements OrderServiceInterface {
   /**
    * Constructs a new OrderService object.
    */
-  public function __construct(Connection $connection) {
+  public function __construct(Connection $connection, EventDispatcherInterface $eventDispatcher) {
+    //database connectio
     $this->connection = $connection;
+    //event dispatcher interface
+    $this->eventDispatcher = $eventDispatcher;
+    //order event
+    $this->orderEvent = new OrderEvent();
   }
 
   /**
@@ -75,9 +92,13 @@ class OrderService implements OrderServiceInterface {
    * @return \Drupal\Core\Database\StatementInterface|int|null
    */
   function setOrder($order){
-    return $this->connection->insert(self::ORDER_TABLE)
-      ->fields($order)
-      ->execute();
+    //add order
+    $this->connection->insert(self::ORDER_TABLE)
+    ->fields($order)
+    ->execute();
+
+    //dispatch event
+    $this->eventDispatcher->dispatch($this->orderEvent::ADD,$this->orderEvent->myEventDescription());
   }
 
   /**
