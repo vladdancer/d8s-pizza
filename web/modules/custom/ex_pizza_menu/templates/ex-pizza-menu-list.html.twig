@@ -1,0 +1,15 @@
+<div class="card-columns">
+  {% for item in items %}
+
+    {% embed '@ex_pizza_menu/ex-pizza-menu-item.html.twig' with {
+        title: item.title,
+        description: item.getDescription(),
+        element: item}
+    %}
+      {% block footer %}
+        <button type="button" class="btn btn-primary">Buy</button>
+      {% endblock %}
+    {% endembed %}
+
+  {% endfor %}
+</div>

@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * Contains ex_pizza_menu.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function ex_pizza_menu_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the pizza_menu module.
+    case 'help.page.pizza_menu':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Pizza Menu') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ex_pizza_menu_theme($existing, $type, $theme, $path) {
+  return [
+    'ex_pizza_menu_list' => [
+      'variables' => [
+        'items' => NULL,
+      ],
+    ],
+  ];
+}
+
+function ex_pizza_menu_preprocess_ex_pizza_menu_list(&$variables) {
+
+  foreach ($variables['items'] as &$item) {
+    $item->button = [
+      '#type' => 'markup',
+      '#markup' => '<button type="button" class="btn btn-primary">Buy</button>',
+    ];
+  }
+  ksm($variables);
+}

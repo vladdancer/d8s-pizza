@@ -1,0 +1,8 @@
+
+ex_pizza_menu.list:
+  path: '/ex-menu'
+  defaults:
+    _controller: '\Drupal\ex_pizza_menu\Controller\MenuController::overview'
+    _title: 'Menu'
+  requirements:
+    _permission: 'access content'

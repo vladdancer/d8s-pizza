@@ -1,0 +1,14 @@
+{
+  "name": "drupal/pizza_menu",
+  "type": "drupal-module",
+  "description": "Pizza Menu",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/pizza_menu",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/pizza_menu",
+    "source": "http://cgit.drupalcode.org/pizza_menu"
+  },
+  "require": { }
+}

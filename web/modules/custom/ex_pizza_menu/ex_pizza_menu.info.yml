@@ -1,0 +1,5 @@
+name: 'Pizza Menu'
+type: module
+description: 'Pizza Menu'
+core: 8.x
+package: 'Pizza'

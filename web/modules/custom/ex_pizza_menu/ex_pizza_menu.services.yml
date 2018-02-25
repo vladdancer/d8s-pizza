@@ -1,0 +1,4 @@
+services:
+  ex_pizza_menu:
+    class: \Drupal\ex_pizza_menu\Services\PizzaMenu
+    arguments: ['@cache.default']
