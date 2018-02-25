@@ -34,7 +34,7 @@ class OrderEvent extends Event {
   }
 
   public function myEventDescription() {
-    return "This is as an example event";
+    return "This is pizza_menu example event";
   }
 
 }
