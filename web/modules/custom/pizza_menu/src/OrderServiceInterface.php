@@ -39,7 +39,6 @@ interface OrderServiceInterface {
    */
   function updateOrder($order_id, $fields);
 
-
   /**
    * Remove Order
    * @param $order_id

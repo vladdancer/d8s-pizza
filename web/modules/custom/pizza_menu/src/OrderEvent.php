@@ -20,6 +20,11 @@ class OrderEvent extends Event {
    */
   const UPDATE = 'event.order.update';
 
+  /**
+   * Delete order
+   */
+  const DELETE = 'event.order.delete';
+
 
   protected $referenceID;
 

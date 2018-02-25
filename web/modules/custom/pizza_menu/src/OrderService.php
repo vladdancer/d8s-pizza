@@ -108,10 +108,12 @@ class OrderService implements OrderServiceInterface {
    * @return \Drupal\Core\Database\StatementInterface|int|null
    */
   function updateOrder($order_id, $fields = array()){
-    return $this->connection->update(self::ORDER_TABLE)
+    $this->connection->update(self::ORDER_TABLE)
       ->fields($fields)
       ->condition('id',$order_id)
       ->execute();
+
+    $this->eventDispatcher->dispatch($this->orderEvent::UPDATE,$this->orderEvent->myEventDescription());
   }
 
 
@@ -125,6 +127,7 @@ class OrderService implements OrderServiceInterface {
       ->fields(array('deleted' => 1))
       ->condition('id', $order_id)
       ->execute();
+    $this->eventDispatcher->dispatch($this->orderEvent::DELETE,$this->orderEvent->myEventDescription());
   }
 
 }
