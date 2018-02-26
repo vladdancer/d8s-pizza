@@ -1,0 +1,11 @@
+<?php
+
+function pizza_menu_theme() {
+    return [
+        'pizza_menu' => [
+            'variables' => [
+                'content' => NULL
+            ]
+        ]
+    ];
+}
