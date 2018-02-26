@@ -1,6 +1,6 @@
 services:
   pizza_menu.services:
     class: Drupal\pizza_menu\PizzaMenuServices
-  pizza_menu.orders.ervice:
+  pizza_menu.orders.service:
     class: Drupal\pizza_menu\OrderService
     arguments: ['@database','@event_dispatcher']
