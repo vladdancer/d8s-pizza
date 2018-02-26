@@ -1,0 +1,22 @@
+# Pizza Order routing definition
+pizza_order.settings_tab:
+  route_name: pizza_order.settings
+  title: 'Settings'
+  base_route: pizza_order.settings
+
+entity.pizza_order.canonical:
+  route_name: entity.pizza_order.canonical
+  base_route: entity.pizza_order.canonical
+  title: 'View'
+
+entity.pizza_order.edit_form:
+  route_name: entity.pizza_order.edit_form
+  base_route: entity.pizza_order.canonical
+  title: 'Edit'
+
+entity.pizza_order.delete_form:
+  route_name:  entity.pizza_order.delete_form
+  base_route:  entity.pizza_order.canonical
+  title: Delete
+  weight: 10
+

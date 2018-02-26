@@ -1,0 +1,19 @@
+add pizza order entities:
+  title: 'Create new Pizza Order entities'
+
+administer pizza order entities:
+  title: 'Administer Pizza Order entities'
+  description: 'Allow to access the administration form to configure Pizza Order entities.'
+  restrict access: true
+
+delete pizza order entities:
+  title: 'Delete Pizza Order entities'
+
+edit pizza order entities:
+  title: 'Edit Pizza Order entities'
+
+view published pizza order entities:
+  title: 'View published Pizza Order entities'
+
+view unpublished pizza order entities:
+  title: 'View unpublished Pizza Order entities'
