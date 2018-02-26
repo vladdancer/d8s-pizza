@@ -1,0 +1,14 @@
+
+# Pizza Order menu items definition
+entity.pizza_order.collection:
+  title: 'Pizza Order list'
+  route_name: entity.pizza_order.collection
+  description: 'List Pizza Order entities'
+  parent: system.admin_structure
+  weight: 100
+
+pizza_order.admin.structure.settings:
+  title: 'Pizza Order settings'
+  description: 'Configure Pizza Order entities'
+  route_name: pizza_order.settings
+  parent: system.admin_structure

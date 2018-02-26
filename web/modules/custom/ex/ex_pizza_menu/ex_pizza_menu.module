@@ -44,5 +44,4 @@ function ex_pizza_menu_preprocess_ex_pizza_menu_list(&$variables) {
       '#markup' => '<button type="button" class="btn btn-primary">Buy</button>',
     ];
   }
-  ksm($variables);
 }
