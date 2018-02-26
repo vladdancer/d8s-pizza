@@ -1,0 +1,5 @@
+entity.pizza_order.add_form:
+  route_name: entity.pizza_order.add_form
+  title: 'Add Pizza Order'
+  appears_on:
+    - entity.pizza_order.collection
