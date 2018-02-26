@@ -13,7 +13,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\ex_pizza_menu\Menu\Model\MenuItem;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class PizzaMenu implements PizzaMenuInterface {
+class PizzaMenuService implements PizzaMenuSeriviceInterface {
 
   const DATA_URL = 'https://next.json-generator.com/api/json/get/4yEcqsqDE';
   const CACHE_KEY = 'cache_ex_pizza_menu_data';
@@ -90,6 +90,14 @@ class PizzaMenu implements PizzaMenuInterface {
       $this->items[$definition->id] = $this->createMenuItemfromDefinition($definition);
     }
     return $this->items[$definition->id];
+  }
+
+  public function getItem($item_id) {
+    if (!isset($this->items[$item_id])) {
+
+      $this->items[$item_id] = $this->createMenuItemfromDefinition($this->definitions[$item_id]);
+    }
+    return $this->items[$item_id];
   }
 
 }

@@ -4,13 +4,13 @@ namespace Drupal\pizza_menu\Controller;
 
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\ex_pizza_menu\Services\PizzaMenuInterface;
+use Drupal\ex_pizza_menu\Services\PizzaMenuSeriviceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PizzaMenuController extends ControllerBase {
     protected $pizzaMenuService;
 
-    public function __construct(PizzaMenuInterface $menuService) {
+    public function __construct(PizzaMenuSeriviceInterface $menuService) {
         $this->pizzaMenuService = $menuService;
     }
 

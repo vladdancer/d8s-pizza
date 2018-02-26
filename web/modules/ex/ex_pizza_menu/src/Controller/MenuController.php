@@ -4,7 +4,7 @@ namespace Drupal\ex_pizza_menu\Controller;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\ex_pizza_menu\Services\PizzaMenuInterface;
+use Drupal\ex_pizza_menu\Services\PizzaMenuSeriviceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -24,7 +24,7 @@ class MenuController extends ControllerBase {
     );
   }
 
-  public function __construct(PizzaMenuInterface $menu_service) {
+  public function __construct(PizzaMenuSeriviceInterface $menu_service) {
     $this->menu = $menu_service;
   }
 

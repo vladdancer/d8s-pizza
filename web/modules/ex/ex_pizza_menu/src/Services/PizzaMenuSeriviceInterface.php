@@ -2,7 +2,7 @@
 namespace Drupal\ex_pizza_menu\Services;
 
 
-interface PizzaMenuInterface {
+interface PizzaMenuSeriviceInterface {
 
   public function get($id);
 
