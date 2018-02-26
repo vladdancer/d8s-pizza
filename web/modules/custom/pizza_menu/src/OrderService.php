@@ -98,7 +98,7 @@ class OrderService implements OrderServiceInterface {
     ->execute();
 
     //dispatch event
-    $this->eventDispatcher->dispatch($this->orderEvent::ADD,$this->orderEvent->myEventDescription());
+    $this->eventDispatcher->dispatch($this->orderEvent::ADD, $this->orderEvent);
   }
 
   /**
