@@ -113,7 +113,7 @@ class OrderService implements OrderServiceInterface {
       ->condition('id',$order_id)
       ->execute();
 
-    $this->eventDispatcher->dispatch($this->orderEvent::UPDATE,$this->orderEvent->myEventDescription());
+    $this->eventDispatcher->dispatch($this->orderEvent::UPDATE,$this->orderEvent);
   }
 
 
@@ -127,7 +127,7 @@ class OrderService implements OrderServiceInterface {
       ->fields(array('deleted' => 1))
       ->condition('id', $order_id)
       ->execute();
-    $this->eventDispatcher->dispatch($this->orderEvent::DELETE,$this->orderEvent->myEventDescription());
+    $this->eventDispatcher->dispatch($this->orderEvent::DELETE,$this->orderEvent);
   }
 
 }
