@@ -1,0 +1,9 @@
+services:
+  pizza_notificator:
+    class: Drupal\pizza_notificator\NotificatorService
+  pizza_subscriber:
+    class: Drupal\pizza_notificator\EventSubscriber\NotificatorEventSubscriber
+    arguments: ['@pizza_notificator']
+    tags:
+      - { name: 'event_subscriber' }
+

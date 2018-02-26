@@ -1,0 +1,6 @@
+name: Pizza Notification
+type: module
+description: 'Pizza Notificator Socket'
+package: Custom
+version: VERSION
+core: 8.x
