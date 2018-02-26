@@ -1,0 +1,14 @@
+{
+  "name": "drupal/ex_pizza_notifier",
+  "type": "drupal-module",
+  "description": "Notify user about order status changing",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/ex_pizza_notifier",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/ex_pizza_notifier",
+    "source": "http://cgit.drupalcode.org/ex_pizza_notifier"
+  },
+  "require": { }
+}

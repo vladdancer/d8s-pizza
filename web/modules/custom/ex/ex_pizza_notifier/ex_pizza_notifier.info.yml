@@ -1,0 +1,5 @@
+name: 'Ex Pizza Notifier'
+type: module
+description: 'Notify user about order status changing'
+core: 8.x
+package: 'Pizza'

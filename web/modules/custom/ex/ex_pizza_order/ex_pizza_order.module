@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Contains ex_pizza_order.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function ex_pizza_order_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the ex_pizza_order module.
+    case 'help.page.ex_pizza_order':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Allow user to order pizzas on a site') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ex_pizza_order_theme() {
+  return [
+    'ex_pizza_order' => [
+      'render element' => 'children',
+    ],
+  ];
+}

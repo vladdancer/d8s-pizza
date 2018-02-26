@@ -1,0 +1,4 @@
+services:
+  ex_pizza_order.storage:
+    class: Drupal\ex_pizza_order\OrderStorage
+    arguments: ['@database','@event_dispatcher']

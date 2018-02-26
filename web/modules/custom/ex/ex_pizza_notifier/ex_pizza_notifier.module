@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Contains ex_pizza_notifier.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function ex_pizza_notifier_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the ex_pizza_notifier module.
+    case 'help.page.ex_pizza_notifier':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Notify user about order status changing') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ex_pizza_notifier_theme() {
+  return [
+    'ex_pizza_notifier' => [
+      'render element' => 'children',
+    ],
+  ];
+}
