@@ -16,13 +16,13 @@ before_install:
   - phpenv config-rm xdebug.ini
   - composer --verbose self-update --$COMPOSER_CHANNEL
   - composer --version
-  - composer global require "squizlabs/php_codesniffer:2.*"
+  #- composer global require "squizlabs/php_codesniffer:2.*"
 
 install:
   - composer --verbose validate
   - composer --verbose install
   - composer global require "drupal/coder:8.2.*"
-  - phpcs --config-set installed_paths $HOME/.composer/vendor/drupal/coder/coder_sniffer
+  #- phpcs --config-set installed_paths $HOME/.composer/vendor/drupal/coder/coder_sniffer
 
 script:
   - cd $TRAVIS_BUILD_DIR/web
@@ -31,7 +31,7 @@ script:
   - until curl -s $SIMPLETEST_BASE_URL; do true; done > /dev/null
   - ./../vendor/bin/drush
   - ./../vendor/bin/drupal
-  - phpcs --standard=phpcs.xml modules/custom -s
+  - ./../vendor/bin/phpcs --standard=phpcs.xml modules/custom -s
 
 after_success:
   - curl -o /tmp/travis-automerge https://raw.githubusercontent.com/cdown/travis-automerge/master/travis-automerge
