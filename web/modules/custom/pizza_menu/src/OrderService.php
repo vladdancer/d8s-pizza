@@ -23,31 +23,9 @@ class OrderService implements OrderServiceInterface {
   protected $eventDispatcher;
 
   /**
-   * id
-   * @var
-   */
-  protected $id;
-
-  /**
-   * Order status
-   * @var
-   */
-  public $status;
-
-  /**
-   * Created Timestamp
-   * @var
-   */
-  public $created;
-
-  /**
-   * Chnaged Timestamp
-   * @var
-   */
-  public $changed;
-
-  /**
    * Constructs a new OrderService object.
+   * @param Connection $connection
+   * @param EventDispatcherInterface $eventDispatcher
    */
   public function __construct(Connection $connection, EventDispatcherInterface $eventDispatcher) {
     //database connectio
@@ -58,75 +36,129 @@ class OrderService implements OrderServiceInterface {
 
   /**
    * Get all orders
-   * @return
    */
   function getOrderAll(){
-    return $this->connection->select(self::ORDER_TABLE, 'ord')
+    $orders = [];
+    $data = $this->connection->select(static::ORDER_TABLE, 'ord')
       ->fields('ord')
-      ->execute();
+      ->execute()
+      ->fetchAll();
+
+    foreach ($data as $datum) {
+      $order = $this->mapOrder($datum);
+      $orders[$order->getOrderId()] = $this->mapOrder($datum);
+    }
+    return $orders;
   }
 
   /**
    * Get order object
    * @param $order_id
-   * @return
    */
   function getOrder($order_id){
-    return $this->connection->select(self::ORDER_TABLE, 'ord')
-      ->fields('ord')
-      ->condition('ord.id', $order_id, '=');
+    $query = $this->connection
+      ->select(self::ORDER_TABLE, 'ord')
+      ->fields('ord');
 
-      // Execute the statement
-      return $query->execute()->fetchObject('id');
+    $query->condition('ord.id', $order_id);
+
+    $data = $query->execute()->fetchObject();
+
+    return $this->mapOrder($data);
   }
+
+  protected function mapOrder($data) {
+    $item = new Order();
+
+    $setValues = \Closure::bind(function ($data) {
+      $this->orderId = $data->id;
+      $this->created = $data->created;
+      $this->changed = $data->changed;
+
+      if (isset($data->uid)) {
+        $this->customer = \Drupal::entityTypeManager()
+          ->getStorage('user')
+          ->load($data->uid);
+      }
+      elseif (isset($data->mail)) {
+        $this->mail = $data->mail;
+      }
+    }, $item, '\Drupal\ex_pizza_order\Model\Order');
+
+    $setValues($data);
+
+    return $item;
+  }
+
 
   /**
    * Create new order
+   *
    * @param $order
-   * @return \Drupal\Core\Database\StatementInterface|int|null
+   *
+   * @throws \Exception
    */
-  function setOrder($order){
-    //add order
-    $this->connection->insert(self::ORDER_TABLE)
-    ->fields($order)
-    ->execute();
+  function createOrder(OrderInterface $order){
+    $fields = [
+      'created',
+      'changed',
+      'status',
+    ];
 
-    //dispatch event
-    $event = new OrderEvent($order['id']);
-    $this->eventDispatcher->dispatch($event::ADD, $event);
+    $values = [
+      $order->getCreated(),
+      $order->getChanged(),
+      $order->getStatus(),
+    ];
+
+    if (!empty($order->getCustomer())) {
+      $fields[] = 'uid';
+      $values[] = $order->getCustomer()->id();
+    }
+    else {
+      $fields[] = 'mail';
+      $values[] = $order->getOrderEmail();
+    }
+
+    try {
+      $query = $this->connection->insert(static::ORDER_TABLE);
+      $query->fields($fields, $values);
+      $query->execute();
+
+    }
+    catch (\Exception $e) {
+      drupal_set_message('error', $e->getMessage());
+    }
+
+    $event = new OrderEvent($order);
+    $this->eventDispatcher->dispatch(OrderEvents::ADD, $event);
   }
 
   /**
    * Update order
-   * @param $order_id
-   * @param $fields
-   * @return \Drupal\Core\Database\StatementInterface|int|null
    */
-  function updateOrder($order_id, $fields = array()){
+  function updateOrder(OrderInterface $order){
     $this->connection->update(self::ORDER_TABLE)
       ->fields($fields)
-      ->condition('id',$order_id)
+      ->condition('id', $order->getOrderId())
       ->execute();
 
-    //dispath event
-    $event = new OrderEvent($order_id);
-    $this->eventDispatcher->dispatch($event::UPDATE, $event);
+    $event = new OrderEvent($order);
+    $this->eventDispatcher->dispatch(OrderEvents::UPDATE, $event);
   }
 
 
   /**
    * Remove Order
-   * @param $order_id
-   * @return \Drupal\Core\Database\StatementInterface|int|null
    */
-  function removeOrder($order_id){
-    return $this->connection->update(self::ORDER_TABLE)
-      ->fields(array('deleted' => 1))
-      ->condition('id', $order_id)
+  function removeOrder(OrderInterface $order){
+    $result = $this->connection->update(self::ORDER_TABLE)
+      ->fields(['deleted' => 1])
+      ->condition('id', $order->getOrderId())
       ->execute();
+    $event = new OrderEvent($order);
+    $this->eventDispatcher->dispatch(OrderEvents::DELETE, $event);
 
-    $event = new OrderEvent($order_id);
-    $this->eventDispatcher->dispatch($event::DELETE,$event);
+    return $result;
   }
-
 }

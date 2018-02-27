@@ -1,45 +1,24 @@
 <?php
+
 namespace Drupal\pizza_menu;
 
-use Symfony\Component\EventDispatcher\Event;
+use Drupal\ex_pizza_order\Model\Order;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
-class OrderEvent extends Event {
-
-  /**
-   * Changed order status
-   */
-  const STATUS = 'event.order.status';
+class OrderEvent extends GenericEvent {
 
   /**
-   * Order Add
+   * @var \Drupal\ex_pizza_order\Model\Order;
    */
-  const ADD = 'event.order.add';
+  protected $order;
 
-  /**
-   * Order Update
-   */
-  const UPDATE = 'event.order.update';
-
-  /**
-   * Delete order
-   */
-  const DELETE = 'event.order.delete';
-
-
-  protected $order_id;
-
-  public function __construct($order_id)
-  {
-    $this->order_id = $order_id;
+  public function __construct(Order $order) {
+    parent::__construct();
+    $this->order = $order;
   }
 
-  public function getOrderId()
-  {
-    return $this->$order_id;
-  }
-
-  public function myEventDescription() {
-    return "This is pizza_menu example event";
+  public function getOrder() {
+    return $this->order;
   }
 
 }

@@ -1,6 +1,12 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ioncracea
+ * Date: 2/27/18
+ * Time: 8:52 PM
+ */
 
-namespace Drupal\ex_pizza_order\Event;
+namespace Drupal\pizza_menus;
 
 
 final class OrderEvents {
