@@ -32,9 +32,12 @@ script:
   - until curl -s $SIMPLETEST_BASE_URL; do true; done > /dev/null
   - ./../vendor/bin/drush
   - ./../vendor/bin/drupal
-  #- phpcs --standard=Drupal modules/custom -s
+  - if [[ "$RUN_PHPCS" = true ]]; then phpcs --standard=Drupal modules/custom -s; fi;
 
 after_success:
   - curl -o /tmp/travis-automerge https://raw.githubusercontent.com/cdown/travis-automerge/master/travis-automerge
   - chmod a+x /tmp/travis-automerge
   - BRANCHES_TO_MERGE_REGEX='devel' BRANCH_TO_MERGE_INTO=master GITHUB_REPO=vladdancer/d8s-pizza /tmp/travis-automerge
+
+notifications:
+  email: false
