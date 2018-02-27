@@ -13,7 +13,7 @@ pipeline:
     directory: $APP_ROOT
 
   - name: Import configurations
-    command: drush config-import -y
+    command: drush cim --source=/var/www/html/config/sync -y
     directory: $APP_ROOT
 
   - name: Run entity updates
