@@ -27,9 +27,12 @@ class MenuItem {
 
   public $title;
 
-  public function __toString() {
-    return $this->title;
-  }
+    public function __toString() {
+        return $this->title;
+    }
+    public function getId() {
+        return $this->id;
+    }
   
   public function getTitle() {
     return $this->title;

@@ -25,6 +25,11 @@ class PizzaMenuController extends ControllerBase {
         return [
             '#theme' => 'pizza_menu',
             '#content' => $pizzas,
+            '#attached' => array(
+                'library' => array(
+                    'pizza_menu/form-command',
+                )
+            ),
         ];
     }
 }
