@@ -1,15 +1,19 @@
 pipeline:
+  - name: Show drush status
+    command: drush status
+    directory: $APP_ROOT
+
   - name: Install dependencies
     type: command
     command: composer install --no-interaction --optimize-autoloader
     directory: $APP_ROOT
 
-  - name: Import configurations
-    command: drush config-import -y
-    directory: $APP_ROOT
-
   - name: Update database
     command: drush updb -y
+    directory: $APP_ROOT
+
+  - name: Import configurations
+    command: drush config-import -y
     directory: $APP_ROOT
 
   - name: Run entity updates
