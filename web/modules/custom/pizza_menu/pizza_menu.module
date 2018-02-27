@@ -6,6 +6,11 @@ function pizza_menu_theme() {
             'variables' => [
                 'content' => NULL
             ]
-        ]
+        ],
+				'pizza_item' => [
+						'variables' => [
+								'content' => NULL
+						]
+				]
     ];
 }

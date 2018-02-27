@@ -2,7 +2,7 @@ pizza_item:
   path: '/menu/{product}'
   defaults:
     _controller: '\Drupal\pizza_menu\Controller\PizzaItemController::render'
-    _title: 'overview'
+    _title_callback: '\Drupal\pizza_menu\Controller\PizzaItemController::getTitle'
   requirements:
     _permission: 'access content'
 
