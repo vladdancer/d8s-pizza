@@ -26,16 +26,16 @@ class OrderEvent extends Event {
   const DELETE = 'event.order.delete';
 
 
-  protected $referenceID;
+  protected $order_id;
 
-  public function __construct()
+  public function __construct($order_id)
   {
-//    $this->referenceID = $referenceID;
+    $this->order_id = $order_id;
   }
 
-  public function getReferenceID()
+  public function getOrderId()
   {
-//    return $this->referenceID;
+    return $this->$order_id;
   }
 
   public function myEventDescription() {

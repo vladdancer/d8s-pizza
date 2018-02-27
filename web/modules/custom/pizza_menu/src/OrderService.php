@@ -23,10 +23,6 @@ class OrderService implements OrderServiceInterface {
   protected $eventDispatcher;
 
   /**
-   * @var OrderEvent
-   */
-  protected $orderEvent;
-  /**
    * id
    * @var
    */
@@ -58,8 +54,6 @@ class OrderService implements OrderServiceInterface {
     $this->connection = $connection;
     //event dispatcher interface
     $this->eventDispatcher = $eventDispatcher;
-    //order event
-    $this->orderEvent = new OrderEvent();
   }
 
   /**
@@ -98,7 +92,8 @@ class OrderService implements OrderServiceInterface {
     ->execute();
 
     //dispatch event
-    $this->eventDispatcher->dispatch($this->orderEvent::ADD, $this->orderEvent);
+    $event = new OrderEvent($order['id']);
+    $this->eventDispatcher->dispatch($event::ADD, $event);
   }
 
   /**
@@ -113,7 +108,9 @@ class OrderService implements OrderServiceInterface {
       ->condition('id',$order_id)
       ->execute();
 
-    $this->eventDispatcher->dispatch($this->orderEvent::UPDATE,$this->orderEvent);
+    //dispath event
+    $event = new OrderEvent($order_id);
+    $this->eventDispatcher->dispatch($event::UPDATE, $event);
   }
 
 
@@ -127,7 +124,9 @@ class OrderService implements OrderServiceInterface {
       ->fields(array('deleted' => 1))
       ->condition('id', $order_id)
       ->execute();
-    $this->eventDispatcher->dispatch($this->orderEvent::DELETE,$this->orderEvent);
+
+    $event = new OrderEvent($order_id);
+    $this->eventDispatcher->dispatch($event::DELETE,$event);
   }
 
 }
