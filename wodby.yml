@@ -5,15 +5,15 @@ pipeline:
     directory: $APP_ROOT
 
   - name: Import configurations
-    command: drush config-import
+    command: drush config-import -y
     directory: $APP_ROOT
 
   - name: Update database
-    command: drush updb
+    command: drush updb -y
     directory: $APP_ROOT
 
   - name: Run entity updates
-    command: drush entity-updates
+    command: drush entity-updates -y
     directory: $APP_ROOT
 
   - name: Clear cache
