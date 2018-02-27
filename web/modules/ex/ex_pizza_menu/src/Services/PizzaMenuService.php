@@ -37,9 +37,13 @@ class PizzaMenuService implements PizzaMenuSeriviceInterface {
   }
 
   public function __construct(CacheBackendInterface $cache) {
+      $this->items =  [];
     try {
       $this->cache = $cache;
       $this->definitions = $this->loadData()['data'];
+      foreach ($this->loadData()['data'] as $item) {
+          $this->definitions[$item->id] = $item;
+      }
     }
     catch (\ErrorException $e) {
       drupal_set_message($e->getMessage(), 'error');
@@ -55,6 +59,7 @@ class PizzaMenuService implements PizzaMenuSeriviceInterface {
     }
     else {
       $items = json_decode(file_get_contents(static::DATA_URL));
+
       $this->cache->set(static::CACHE_KEY, $items, CacheBackendInterface::CACHE_PERMANENT);
       return [
         'data' => $items,
@@ -93,7 +98,7 @@ class PizzaMenuService implements PizzaMenuSeriviceInterface {
   }
 
   public function getItem($item_id) {
-    if (!isset($this->items[$item_id])) {
+    if (empty($this->items[$item_id])) {
 
       $this->items[$item_id] = $this->createMenuItemfromDefinition($this->definitions[$item_id]);
     }
