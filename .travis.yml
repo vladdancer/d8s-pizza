@@ -30,5 +30,6 @@ script:
   - ./../vendor/bin/drupal
 
 after_success:
-  - cd ..
-  - ./deploy.sh
+  - curl -o /tmp/travis-automerge https://raw.githubusercontent.com/cdown/travis-automerge/master/travis-automerge
+  - chmod a+x /tmp/travis-automerge
+  - BRANCHES_TO_MERGE_REGEX='devel' BRANCH_TO_MERGE_INTO=master GITHUB_REPO=vladdancer/d8s-pizza /tmp/travis-automerge
