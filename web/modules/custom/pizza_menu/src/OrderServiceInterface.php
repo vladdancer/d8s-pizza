@@ -27,22 +27,17 @@ interface OrderServiceInterface {
   /**
    * Create new order
    * @param $order
-   * @return \Drupal\Core\Database\StatementInterface|int|null
    */
-  function setOrder($order);
+  function createOrder(OrderInterface $order);
 
   /**
    * Update order
-   * @param $order_id
-   * @param $fields
-   * @return \Drupal\Core\Database\StatementInterface|int|null
    */
-  function updateOrder($order_id, $fields);
+  function updateOrder(OrderInterface $order);
 
   /**
    * Remove Order
    * @param $order_id
-   * @return \Drupal\Core\Database\StatementInterface|int|null
    */
-  function removeOrder($order_id);
+  function removeOrder(OrderInterface $order);
 }
