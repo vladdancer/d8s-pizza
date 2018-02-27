@@ -18,6 +18,7 @@ before_install:
   - composer --version
   - composer global require "drupal/coder:8.2.*"
   - composer global require dealerdirect/phpcodesniffer-composer-installer
+  - export PATH="$PATH:$HOME/.composer/vendor/bin"
   - phpcs -i
 
 install:
