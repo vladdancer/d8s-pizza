@@ -3,8 +3,10 @@
 namespace Drupal\pizza_menu;
 
 use Drupal\Core\Database\Connection;
+use Drupal\pizza_menu;
+use Drupal\pizza_menu\Model\Order;
+use Drupal\pizza_menu\Model\OrderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Drupal\pizza_menu\OrderEvent;
 
 /**
  * Class OrderService.
@@ -24,14 +26,13 @@ class OrderService implements OrderServiceInterface {
 
   /**
    * Constructs a new OrderService object.
-   * @param Connection $connection
-   * @param EventDispatcherInterface $eventDispatcher
    */
   public function __construct(Connection $connection, EventDispatcherInterface $eventDispatcher) {
     //database connectio
     $this->connection = $connection;
     //event dispatcher interface
     $this->eventDispatcher = $eventDispatcher;
+    //order
   }
 
   /**
@@ -48,7 +49,7 @@ class OrderService implements OrderServiceInterface {
       $order = $this->mapOrder($datum);
       $orders[$order->getOrderId()] = $this->mapOrder($datum);
     }
-    return $orders;
+    return $data;
   }
 
   /**
@@ -83,13 +84,12 @@ class OrderService implements OrderServiceInterface {
       elseif (isset($data->mail)) {
         $this->mail = $data->mail;
       }
-    }, $item, '\Drupal\ex_pizza_order\Model\Order');
+    }, $item, '\Drupal\pizza_menu\Model\Order');
 
     $setValues($data);
 
     return $item;
   }
-
 
   /**
    * Create new order
@@ -134,19 +134,38 @@ class OrderService implements OrderServiceInterface {
     $this->eventDispatcher->dispatch(OrderEvents::ADD, $event);
   }
 
+  function objectToArray($data){
+    if (is_array($data) || is_object($data))
+    {
+      $result = array();
+      foreach ($data as $key => $value)
+      {
+        $result[$key] = $this->objectToArray($value);
+      }
+      return $result;
+    }
+    return $data;
+  }
+
   /**
    * Update order
    */
   function updateOrder(OrderInterface $order){
+//    ksm($order);
+    $fields_arr = array(
+      'id' => $order->getOrderId(),
+      'status' => $order->getStatus(),
+      'changed' => $order->getChanged(),
+      'created' => $order->getCreated()
+    );
     $this->connection->update(self::ORDER_TABLE)
-      ->fields($fields)
+      ->fields($fields_arr)
       ->condition('id', $order->getOrderId())
       ->execute();
 
     $event = new OrderEvent($order);
     $this->eventDispatcher->dispatch(OrderEvents::UPDATE, $event);
   }
-
 
   /**
    * Remove Order
@@ -161,4 +180,5 @@ class OrderService implements OrderServiceInterface {
 
     return $result;
   }
+
 }

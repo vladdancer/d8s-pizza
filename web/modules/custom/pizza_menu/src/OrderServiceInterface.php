@@ -1,14 +1,18 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: VladDancer
+ * Date: 2/26/18
+ * Time: 12:48 AM
+ */
 
 namespace Drupal\pizza_menu;
 
-/**
- * Interface OrderServiceInterface.
- */
-/**
- * Interface OrderServiceInterface
- * @package Drupal\pizza_menu
- */
+
+
+use Drupal\Core\Session\AccountInterface;
+use Drupal\pizza_menu\Model\OrderInterface;
+
 interface OrderServiceInterface {
 
   /**

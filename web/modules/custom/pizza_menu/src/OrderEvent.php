@@ -2,7 +2,7 @@
 
 namespace Drupal\pizza_menu;
 
-use Drupal\ex_pizza_order\Model\Order;
+use Drupal\pizza_menu\Model\Order;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 class OrderEvent extends GenericEvent {

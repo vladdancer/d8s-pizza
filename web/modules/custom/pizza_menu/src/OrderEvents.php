@@ -6,7 +6,7 @@
  * Time: 8:52 PM
  */
 
-namespace Drupal\pizza_menus;
+namespace Drupal\pizza_menu;
 
 
 final class OrderEvents {
