@@ -1,4 +1,4 @@
 {% for item in content %}
-    <a href="{{ url('pizza_item', {product: item.getId()}) }}">{{ item.title }}</a>
+    <a href="{{ url('pizza_item', {product: item.getId()}) }}" class="use-ajax">{{ item.title }}</a>
     {{ item.getDescription() }}
 {% endfor %}
