@@ -13,3 +13,10 @@ pizza_menu:
     _title: 'Menu'
   requirements:
     _permission: 'access content'
+
+pizza_order:
+  path: '/menu/{product}/order'
+  defaults:
+    _form: '\Drupal\pizza_menu\Form\PizzaItemOrder'
+  requirements:
+    _permission: 'access content"
